@@ -69,7 +69,7 @@
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/Address.json"
 			},
-			"": {
+			"es4": {
 				"dataSource" : "ES4"
 			}
 		},

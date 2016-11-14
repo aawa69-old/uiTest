@@ -51,12 +51,22 @@
 							</IconTabFilter>
 							<IconTabFilter text="{i18n>dataBindingFilter}" key="db">
 								<content>
-									<List headerText="{i18n>productListTitle}" items="{/ProductSet}">
+									<List headerText="{i18n>productListTitle}" items="{es4>/ProductSet}">
 										<items>
-											<ObjectListItem title="{Name}" number="{Price}" numberUnit="{CurrencyCode}" numberState="{= ${Price} > 500 ? 'Error' : 'Success'}"
-												intro="{ProductID}">
+											<ObjectListItem 
+												title="{es4>Name}" 
+												number="{es4>Price}" 
+												numberUnit="{es4>CurrencyCode}" 
+												numberState="{= ${es4>Price} > 500 ? 'Error' : 'Success'}"
+												intro="{es4>ProductID}">
 												<firstStatus>
-													<ObjectStatus text="{ parts: [ {path: 'WeightUnit'}, {path: 'WeightMeasure'} ], formatter : '.formatter.delivery' }"/>
+													<ObjectStatus 
+														text="{ 
+															parts: [
+																{path: 'es4>WeightUnit'}, 
+																{path: 'es4>WeightMeasure'} 
+															], 
+															formatter: '.formatter.delivery' }"/>
 												</firstStatus>
 											</ObjectListItem>
 										</items>
