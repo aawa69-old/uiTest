@@ -17,6 +17,20 @@
 	</script>
 	<script>
 		sap.ui.getCore().attachInit(function () {
+			
+			// workaround begin: start a mock server
+			/*
+			jQuery.sap.require("sap.ui.core.util.MockServer");
+			var oMockServer = new sap.ui.core.util.MockServer({
+				rootUri: "/destinations/ES4/sap/opu/odata/IWBEP/GWSAMPLE_BASIC/"
+			});
+			oMockServer.simulate("metadata.xml", {
+				bGenerateMissingMockData: true
+			});
+			oMockServer.start();
+			*/
+			// workaround end			
+			
 			// Create component container - uses Component.js
 			new sap.ui.core.ComponentContainer({ name : "opensap.myapp" }).placeAt("content");
 			
