@@ -16,7 +16,9 @@
 									</pages>
 								</Carousel>
 								<Button text="{i18n>showHelloButtonText}" press="onShowHello"/>
-								<Input value="{helloPanel>/recipient/name}" description="Hello {helloPanel>/recipient/name}" valueLiveUpdate="true" width="60%"/>
+								<Input
+									value="{ path: 'helloPanel>/recipient/name', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2 }, constraints: { maximum: 3000 } }"
+									description="Hello {helloPanel>/recipient/name}" width="60%"/>
 							</IconTabFilter>
 							<IconTabFilter id="layouts" text="{i18n>layoutFilter}">
 								<MessageStrip type="Information" showIcon="true"
@@ -53,20 +55,11 @@
 								<content>
 									<List headerText="{i18n>productListTitle}" items="{es4>/ProductSet}">
 										<items>
-											<ObjectListItem 
-												title="{es4>Name}" 
-												number="{es4>Price}" 
-												numberUnit="{es4>CurrencyCode}" 
-												numberState="{= ${es4>Price} > 500 ? 'Error' : 'Success'}"
-												intro="{es4>ProductID}">
+											<ObjectListItem title="{es4>Name}"
+												number="{ parts: [ {path: 'es4>Price'}, {path: 'es4>CurrencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
+												numberUnit="{es4>CurrencyCode}" numberState="{= ${es4>Price} > 500 ? 'Error' : 'Success'}" intro="{es4>ProductID}">
 												<firstStatus>
-													<ObjectStatus 
-														text="{ 
-															parts: [
-																{path: 'es4>WeightUnit'}, 
-																{path: 'es4>WeightMeasure'} 
-															], 
-															formatter: '.formatter.delivery' }"/>
+													<ObjectStatus text="{ parts: [ {path: 'es4>WeightUnit'}, {path: 'es4>WeightMeasure'} ], formatter: '.formatter.delivery' }"/>
 												</firstStatus>
 											</ObjectListItem>
 										</items>
