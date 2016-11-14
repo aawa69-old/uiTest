@@ -1,4 +1,4 @@
-<mvc:View displayBlock="true" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns="sap.m"
+<mvc:View displayBlock="true" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns="sap.m"
 	controllerName="opensap.myapp.controller.App">
 	<App>
 		<pages>
@@ -53,7 +53,21 @@
 							</IconTabFilter>
 							<IconTabFilter text="{i18n>dataBindingFilter}" key="db">
 								<content>
-									<List headerText="{i18n>productListTitle}" items="{es4>/ProductSet}">
+									<List 
+										id="productsList" 
+										items="{ path: 'es4>/ProductSet', sorter: { path: 'Category', group: true }, parameters: { expand: 'ToSupplier' } }"
+										growing="true"
+										growingThreshold="5" 
+										growingScrollToLoad="false"
+										mode="SingleSelectMaster"
+										selectionChange="onItemSelected">
+										<headerToolbar>
+											<Toolbar>
+												<Title text="{i18n>productListTitle}"/>
+												<ToolbarSpacer/>
+												<SearchField width="50%" search="onFilterProducts"/>
+											</Toolbar>
+										</headerToolbar>
 										<items>
 											<ObjectListItem title="{es4>Name}"
 												number="{ parts: [ {path: 'es4>Price'}, {path: 'es4>CurrencyCode'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }"
@@ -61,9 +75,22 @@
 												<firstStatus>
 													<ObjectStatus text="{ parts: [ {path: 'es4>WeightUnit'}, {path: 'es4>WeightMeasure'} ], formatter: '.formatter.delivery' }"/>
 												</firstStatus>
+												<secondStatus>
+													<ObjectStatus title="{i18n>statusDeliveryFrom}" text="{es4>ToSupplier/Address/City}"/>	
+												</secondStatus>
 											</ObjectListItem>
 										</items>
 									</List>
+									<Panel id="productDetailsPanel"
+										headerText="{i18n>productDetailPanelHeader}"
+										visible="false">
+										<l:Grid defaultSpan="L3 M6 S12">
+											<Text text="{i18n>productDetailPanelID}: {es4>ProductID}"/>
+											<Text text="{i18n>productDetailPanelName}: {es4>Name}"/>
+											<Text text="{i18n>productDetailPanelDescription}:\n {es4>Description}"/>
+											<Text text="{i18n>productDetailPanelPrice}: {es4>Price}"/>
+										</l:Grid>
+									</Panel>
 								</content>
 							</IconTabFilter>
 						</items>
